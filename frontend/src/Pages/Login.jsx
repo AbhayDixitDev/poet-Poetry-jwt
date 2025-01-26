@@ -27,7 +27,7 @@ const Login = () => {
     e.preventDefault()
     setLoading(true)
     try {
-      let api = `http://localhost:8000/${type}/login`
+      let api = `https://poet-poetry-backend-1.onrender.com/${type}/login`
       let response = await axios.post(api,{email,password},{withCredentials:true})
       setLoading(false)
       localStorage.setItem(`${type}Name`,response.data.name)

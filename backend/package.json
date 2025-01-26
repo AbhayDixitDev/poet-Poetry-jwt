@@ -4,8 +4,12 @@
   "devDependencies": {
     "@types/bun": "latest"
   },
+  "scripts": {
+    "start": "bun run index.js"
+  },
   "type": "commonjs",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "cloudinary": "^1.41.3",
     "cookie-parser": "^1.4.7",
@@ -15,6 +19,7 @@
     "express": "^4.21.2",
     "google-auth-library": "^9.15.0",
     "googleapis": "^144.0.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.5",
     "multer": "^1.4.5-lts.1",
     "multer-storage-cloudinary": "^4.0.0",

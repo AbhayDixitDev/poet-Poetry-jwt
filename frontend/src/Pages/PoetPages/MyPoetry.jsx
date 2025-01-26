@@ -8,7 +8,7 @@ const MyPoems = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const fetchPoems = async () => {
-      const res = await axios.get(`http://localhost:8000/poet/myPoetry`, {
+      const res = await axios.get(`https://poet-poetry-backend-1.onrender.com/poet/myPoetry`, {
         withCredentials: true,
       });
       setPoems(res.data.poems);

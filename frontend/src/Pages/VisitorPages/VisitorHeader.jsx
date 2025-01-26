@@ -10,7 +10,7 @@ const VisitorHeader = () => {
   const logoutVisitor = async() => {
     try {
       
-      const res = await axios.get('http://localhost:8000/Visitor/logout', {withCredentials:true})
+      const res = await axios.get('https://poet-poetry-backend-1.onrender.com/Visitor/logout', {withCredentials:true})
       console.log(res)
     } catch (error) {
       console.log(error)

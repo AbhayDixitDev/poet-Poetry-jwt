@@ -11,19 +11,19 @@ const AllPoem = () => {
 
   useEffect(() => {
     const fetchPoems = async () => {
-      const res = await axios.get('http://localhost:8000/poet/allpoems', {
+      const res = await axios.get('https://poet-poetry-backend-1.onrender.com/poet/allpoems', {
         withCredentials: true,
       });
       setPoems(res.data.poems);
     };
     const fetchUsers = async () => {
-      const res = await axios.get('http://localhost:8000/poet/allusers', {
+      const res = await axios.get('https://poet-poetry-backend-1.onrender.com/poet/allusers', {
         withCredentials: true,
       });
       setUsers(res.data.users);
     };
     const fetchLikes = async () => {
-      const res = await axios.get('http://localhost:8000/visitor/likes', {
+      const res = await axios.get('https://poet-poetry-backend-1.onrender.com/visitor/likes', {
         withCredentials: true,
       });
       setLikes(res.data.likes);
@@ -40,7 +40,7 @@ const AllPoem = () => {
   const handleLike = async (poemId) => {
     try {
       const res = await axios.post(
-        'http://localhost:8000/visitor/like',
+        'https://poet-poetry-backend-1.onrender.com/visitor/like',
         { poemId },
         {
           withCredentials: true,

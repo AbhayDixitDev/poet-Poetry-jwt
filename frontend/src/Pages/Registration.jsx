@@ -33,7 +33,7 @@ const Registration = () => {
       formData.append('avatar', avatar)
       formData.append('type', type)
 
-      let api = `http://localhost:8000/${type}/register`
+      let api = `https://poet-poetry-backend-1.onrender.com/${type}/register`
       let res = await axios.post(api, formData,{
         headers:{
           'Content-Type':'multipart/form-data'

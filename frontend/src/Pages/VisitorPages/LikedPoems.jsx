@@ -9,7 +9,7 @@ const LikedPoems = () => {
   useEffect(() => {
    
     const fetchPoems = async () => {
-      const res = await axios.get('http://localhost:8000/visitor/likedpoems', {
+      const res = await axios.get('https://poet-poetry-backend-1.onrender.com/visitor/likedpoems', {
         withCredentials: true,
       })
       setPoems(res.data)
