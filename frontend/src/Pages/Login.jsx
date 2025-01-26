@@ -1,65 +1,59 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import { TextField, CircularProgress, Link } from '@mui/material'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#0d6efd',
-    },
-    secondary: {
-      main: '#6c757d',
-    },
-  },
-})
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios' 
+import {message } from 'antd'
+import {useEffect} from 'react'
+
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [type, setType] = useState('poet')
+
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (localStorage.getItem(`${type}Name`)) {
+      navigate(`/${type}`)
+    }
+  },[])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
     try {
-      // Call your login API here
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      })
-      const data = await response.json()
-      if (data.success) {
-        // Redirect to dashboard or whatever
-        window.location.href = '/dashboard'
-      } else {
-        alert(data.message)
-      }
+      let api = `http://localhost:8000/${type}/login`
+      let response = await axios.post(api,{email,password},{withCredentials:true})
+      setLoading(false)
+      localStorage.setItem(`${type}Name`,response.data.name)
+      localStorage.setItem(`${type}Avatar`,response.data.avatar)
+      message.success(response.data.message)
+      navigate(`/${type}`)
     } catch (error) {
-      console.error(error)
-      alert('Something went wrong')
-    } finally {
+      console.log(error)
       setLoading(false)
     }
   }
 
+
+
   return (
-    <ThemeProvider theme={theme}>
-      <Container
-        fluid
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: '#f5f5f5',
-        }}
-      >
+      <Container >
         <Row className="justify-content-center">
           <Col md={4}>
             <Form onSubmit={handleSubmit} className="text-center">
               <h1 className="mb-4">Login</h1>
+              <Form.Group controlId="type" className="mb-3">
+              <select value={type} onChange={(e) => setType(e.target.value)} style={{ width: '350px' }}>
+                <option value="poet">Poet</option>
+                <option value="visitor">Visitor</option>
+              </select>
+            </Form.Group>
               <Form.Group controlId="email" className="mb-3">
                 <TextField
                   label="Email"
@@ -68,7 +62,7 @@ const Login = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   fullWidth
                   variant="outlined"
-                  style={{ width: '300px' }}
+                  style={{ width: '350px' }}
                 />
               </Form.Group>
               <Form.Group controlId="password" className="mb-3">
@@ -79,7 +73,7 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   fullWidth
                   variant="outlined"
-                  style={{ width: '300px' }}
+                  style={{ width: '350px' }}
                 />
               </Form.Group>
               <Button
@@ -88,20 +82,17 @@ const Login = () => {
                 block
                 disabled={loading}
                 className="mb-4"
-                style={{ width: '300px' }}
+                style={{ width: '350px' }}
               >
-                {loading ? <CircularProgress size={20} /> : 'Login'}
+                {loading ? <CircularProgress size={15} /> : 'Login'}
               </Button>
-              <Link href="/signup" underline="none" style={{textDecoration:"none",display:"inline"}}>
-                <Button variant="primary" block style={{ width: '300px' }}>
+              <Button variant="secondary" type="button" style={{ width: '350px' }} onClick={() => navigate('/register')} >
                   Don't have an account? Sign up
                 </Button>
-              </Link>
             </Form>
           </Col>
         </Row>
       </Container>
-    </ThemeProvider>
   )
 }
 
