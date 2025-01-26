@@ -32,7 +32,7 @@ const PoetHeader = () => {
         <Nav className='me-auto' style={{color:"#888"}}>
           <Nav.Link as={Link} href="/poet">
           Welcome Back, {localStorage.getItem('poetName')}
-          <img src={localStorage.getItem('poetAvatar')} alt="User  Avatar" height={40} style={{borderRadius: '50%', border:'1px solid #888'}}/>
+          <img src={localStorage.getItem('poetAvatar')} alt="User  Avatar" height={40} width={40} style={{borderRadius: '50%', border:'1px solid #888'}}/>
           </Nav.Link>                    
         </Nav>
         <Navbar.Collapse id="responsive-navbar-nav">

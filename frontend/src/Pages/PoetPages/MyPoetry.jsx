@@ -20,8 +20,8 @@ const MyPoems = () => {
       <Row xs={1} md={2} lg={3} className="g-4">
         {poems.map((poem) => (
           <Col key={poem._id}>
-            <Card>
-              <Card.Img variant="top" src={poem.poster} style={{height:'200px',maxWidth:'200px'}}/>
+            <Card style={{ width: '18rem' }}>
+              <Card.Img variant="top" src={poem.poster} style={{height:'200px'}}/>
               <Card.Body>
                 <Card.Title>{poem.title}</Card.Title>
                 <Card.Text>{poem.description}</Card.Text>

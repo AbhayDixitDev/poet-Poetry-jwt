@@ -32,7 +32,7 @@ const VisitorHeader = () => {
         <Nav className='me-auto' style={{color:"#888"}}>
           <Nav.Link as={Link} href="/Visitor">
           Welcome Back, {localStorage.getItem('visitorName')}
-          <img src={localStorage.getItem('visitorAvatar')} alt="User  Avatar" height={40} style={{borderRadius: '50%', border:'1px solid #888'}}/>
+          <img src={localStorage.getItem('visitorAvatar')} alt="User  Avatar" height={40} width={40} style={{borderRadius: '50%', border:'1px solid #888'}}/>
           </Nav.Link>                    
         </Nav>
         <Navbar.Collapse id="responsive-navbar-nav">
