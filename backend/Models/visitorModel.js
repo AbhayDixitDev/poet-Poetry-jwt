@@ -5,7 +5,8 @@ const VisitorSchema = new mongoose.Schema({
     email:String,
     password:String,
     avatar:String,
-    likes:[{type:mongoose.Schema.Types.ObjectId,ref:"Poem"} ]
+    likes:[{type:mongoose.Schema.Types.ObjectId,ref:"Poem"} ],
+    reviews:[{type:mongoose.Schema.Types.ObjectId,ref:"Review"}]
 })
 
 module.exports = mongoose.model("Visitor",VisitorSchema)

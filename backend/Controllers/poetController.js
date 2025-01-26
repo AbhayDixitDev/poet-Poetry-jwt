@@ -4,6 +4,7 @@ const PoemModel = require('../Models/poemModel');
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const cloudinary = require('../Utils/cloudinary');
+const ReviewModel = require('../Models/reviewModel');
 
 
 const Register = async (req, res) => {
@@ -58,7 +59,7 @@ const Login = async (req, res) => {
 
     const token = jwt.sign({ id: poet._id }, 'secret', { expiresIn: '1h' });
 
-    res.status(200).cookie('token', token, { httpOnly: true }).json({ message: 'Login successful', name: poet.name, avatar: poet.avatar });
+    res.status(200).cookie('token', token, { httpOnly: true, secure: true, sameSite: 'none' }).json({ message: 'Login successful', name: poet.name, avatar: poet.avatar , id: poet._id});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Something went wrong' });
@@ -81,29 +82,33 @@ const Logout = async (req, res) => {
 const AddPoem = async (req, res) => {
   const { title, description} = req.body;
   const file = req.file;
-  console.log(req.cookies)
-  const token = jwt.verify(req.cookies.token, 'secret')
-  console.log(token.id);
-  const result = await cloudinary.uploader.upload(file.path, {
-    use_filename: true,
-    unique_filename: false
-  });
-  console.log('Cloudinary upload result:', result); 
-console.log(result.secure_url);
-
-
-
-const newPoem = await PoemModel.create({
-    title,
-    description,
-    poster: result.secure_url,
-    poet: token.id
-  });
-
-  const poet = await PoetModel.findByIdAndUpdate(token.id,{$push:{poems:newPoem._id}})
-
-  res.status(201).json({ message: 'Successfully added', poem:newPoem });
-  fs.unlinkSync(file.path);
+  try {
+    console.log(req.cookies)
+    const token = jwt.verify(req.cookies.token, 'secret')
+    console.log(token.id);
+    const result = await cloudinary.uploader.upload(file.path, {
+      use_filename: true,
+      unique_filename: false
+    });
+    // console.log('Cloudinary upload result:', result); 
+  // console.log(result.secure_url);
+  
+  
+  const newPoem = await PoemModel.create({
+      title,
+      description,
+      poster: result.secure_url,
+      poet: token.id
+    });
+  
+  await PoetModel.findByIdAndUpdate(token.id,{$push:{poems:newPoem._id}})
+  
+    res.status(201).json({ message: 'Successfully added', poem:newPoem });
+    fs.unlinkSync(file.path);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Something went wrong' });
+  }
 };
 
 
@@ -118,13 +123,25 @@ const MyPoetry = async (req, res) => {
 const AllPoems = async (req, res) => {
   const poems = await PoemModel.find();
   res.status(200).json({ poems });
-  console.log(poems)
+  // console.log(poems)
   };
 
 const AllUsers = async (req, res) => {
   const users = await PoetModel.find();
   res.status(200).json({ users });
-  console.log(users)
+  // console.log(users)
   };
 
-module.exports = { Register, Login, Logout , AddPoem, MyPoetry, AllPoems, AllUsers};
+const MyReviews = async (req, res) => {
+  const token = jwt.verify(req.cookies.token, 'secret')
+  const poemsfiltered = await PoemModel.find({poet:token.id})
+  // console.log("poemsfiltered",poemsfiltered);
+  
+  const reviews = await ReviewModel.find({poem:{$in:poemsfiltered.map(poem => poem._id)}}).populate('poem').populate('visitor');
+  console.log("reviews",reviews);
+ 
+
+  res.status(200).json( reviews );
+  };
+
+module.exports = { Register, Login, Logout , AddPoem, MyPoetry, AllPoems, AllUsers, MyReviews};

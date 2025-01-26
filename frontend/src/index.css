@@ -1,0 +1,18 @@
+
+  
+  .buttonStar {
+    margin: 5px !important;
+    background-color: transparent !important;
+    color: black !important;
+    border: none !important;
+    font-size: 40px !important;
+    transition: color 0.3s !important; /* Optional: for smooth transition */
+    background: linear-gradient(120deg, #ffcc00 0%, #ffcc00 50%, #ffffff 50%);
+    background-size: 200% 100%;
+    background-position: 0% 100%;
+    transition: background-position 0.5s ease-out;
+  }
+  .buttonStar:hover {
+    background-position: 100% 100%;
+    color:  #ffcc00 !important;
+  }

@@ -18,7 +18,7 @@ const AddPoem = () => {
     formData.append('poster', poster)
 
     try {
-      const res = await axios.post('https://poet-poetry-backend-1.onrender.com/poet/addpoem', formData, {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/poet/addpoem`, formData, {
         withCredentials: true
       })
       console.log(res)

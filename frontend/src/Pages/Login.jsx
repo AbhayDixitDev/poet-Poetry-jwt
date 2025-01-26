@@ -27,11 +27,12 @@ const Login = () => {
     e.preventDefault()
     setLoading(true)
     try {
-      let api = `https://poet-poetry-backend-1.onrender.com/${type}/login`
+      let api = `${import.meta.env.VITE_API_URL}/${type}/login`
       let response = await axios.post(api,{email,password},{withCredentials:true})
       setLoading(false)
       localStorage.setItem(`${type}Name`,response.data.name)
       localStorage.setItem(`${type}Avatar`,response.data.avatar)
+      localStorage.setItem(`${type}Id`,response.data.id)
       message.success(response.data.message)
       navigate(`/${type}`)
     } catch (error) {

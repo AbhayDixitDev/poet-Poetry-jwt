@@ -10,5 +10,7 @@ router.get("/logout",visitorController.Logout)
 router.get("/allpoems",visitorController.AllPoems)
 router.post("/like",visitorController.Likes)
 router.get("/likedpoems",visitorController.LikedPoems)
+router.post("/givereview",visitorController.GiveReview)
+router.get("/myreviews",visitorController.MyReviews)
 
 module.exports = router

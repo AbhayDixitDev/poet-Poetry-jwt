@@ -11,5 +11,6 @@ router.post("/addpoem",upload.single('poster'),poetController.AddPoem)
 router.get("/myPoetry",poetController.MyPoetry)
 router.get("/allpoems",poetController.AllPoems)
 router.get("/allusers",poetController.AllUsers)
+router.get("/mypoemreviews",poetController.MyReviews)
 
 module.exports = router

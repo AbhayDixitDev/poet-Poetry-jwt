@@ -10,7 +10,7 @@ const VisitorHeader = () => {
   const logoutVisitor = async() => {
     try {
       
-      const res = await axios.get('https://poet-poetry-backend-1.onrender.com/Visitor/logout', {withCredentials:true})
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/Visitor/logout`, {withCredentials:true})
       console.log(res)
     } catch (error) {
       console.log(error)
@@ -40,6 +40,7 @@ const VisitorHeader = () => {
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/visitor/allPoetry">All Poetry</Nav.Link>
             <Nav.Link as={Link} to="/visitor/likedPoetry">My Liked Poetry</Nav.Link>
+            <Nav.Link as={Link} to="/visitor/myreviews">My Reviews</Nav.Link>
             <Button variant="outline-light" onClick={() => {logoutVisitor()}}>
               Logout
             </Button>

@@ -10,6 +10,8 @@ import AllPoems from './Pages/PoetPages/AllPoems'
 import VisitorLayout from './Pages/VisitorPages/VisitorLayout'
 import LikedPoem from './Pages/VisitorPages/LikedPoems'
 import AllPoemsV from './Pages/VisitorPages/AllPoems'
+import YourReviews from './Pages/VisitorPages/YourReviews'
+import MyPoemsReviews from './Pages/PoetPages/MyPoemsReviews'
 const App = () => {
   return (
    <>
@@ -24,11 +26,13 @@ const App = () => {
     <Route path='addpoem' element={<AddPoem/>} ></Route>
     <Route path='myPoetry' element={<MyPoems/>} ></Route>
     <Route path='allPoetry' element={<AllPoems/>} ></Route>
+    <Route path='mypoemreviews' element={<MyPoemsReviews/>} ></Route>
     </Route>
     <Route path='/visitor' element={<VisitorLayout/>}>
     <Route index element={<AllPoemsV/>} ></Route>
     <Route path='allPoetry' element={<AllPoemsV/>} ></Route>
     <Route path='likedPoetry' element={<LikedPoem/>} ></Route>
+    <Route path='myreviews' element={<YourReviews/>} ></Route>
     </Route>
    </Routes>
    </BrowserRouter>

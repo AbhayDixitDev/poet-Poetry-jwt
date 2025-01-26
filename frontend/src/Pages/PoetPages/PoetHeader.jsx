@@ -10,7 +10,7 @@ const PoetHeader = () => {
   const logoutPoet = async() => {
     try {
       
-      const res = await axios.get('https://poet-poetry-backend-1.onrender.com/poet/logout', {withCredentials:true})
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/poet/logout`, {withCredentials:true})
       console.log(res)
     } catch (error) {
       console.log(error)
@@ -41,6 +41,7 @@ const PoetHeader = () => {
             <Nav.Link as={Link} to="/poet/addpoem">Create Poetry</Nav.Link>
             <Nav.Link as={Link} to="/poet/myPoetry">My Poetry</Nav.Link>
             <Nav.Link as={Link} to="/poet/allPoetry">All Poetry</Nav.Link>
+            <Nav.Link as={Link} to="/poet/mypoemreviews">My Reviews</Nav.Link>
             <Button variant="outline-light" onClick={() => {logoutPoet()}}>
               Logout
             </Button>

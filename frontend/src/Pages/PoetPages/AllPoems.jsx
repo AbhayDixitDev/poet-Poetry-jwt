@@ -9,13 +9,13 @@ const AllPoem = () => {
 
   useEffect(() => {
     const fetchPoems = async () => {
-      const res = await axios.get('https://poet-poetry-backend-1.onrender.com/poet/allpoems', {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/poet/allpoems`, {
         withCredentials: true,
       });
       setPoems(res.data.poems);
     };
     const fetchUsers = async () => {
-      const res = await axios.get('https://poet-poetry-backend-1.onrender.com/poet/allusers', {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/poet/allusers`, {
         withCredentials: true,
       });
       setUsers(res.data.users);
