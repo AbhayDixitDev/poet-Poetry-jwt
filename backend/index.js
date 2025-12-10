@@ -6,6 +6,7 @@ dotenv.config()
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 
+const PORT = process.env.PORT || 8000
 
 app.use(cookieParser())
 mongoose.connect(process.env.MONGO_URI).then(()=>{
@@ -28,7 +29,7 @@ const visitorRoute = require("./Routes/VisitorRoute")
 app.use('/poet',poetRoute)
 app.use('/visitor',visitorRoute)
 
-app.listen(8000,()=>{
-    console.log('Server started on port 8000');
+app.listen(PORT,()=>{
+    console.log(`Server started on port : ${PORT}`); 
     
 })
